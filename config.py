@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-domains = [
+stats = [
     'as',
     'bn',
     'gu',
@@ -173,3 +173,13 @@ siteData= {
         }
     }
 }
+
+import os
+
+class Config:
+    # Directly include the root username and empty password
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:@localhost/indic_wsstats'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+# If you have domains or other variables
+domains = ['example.com', 'anotherdomain.com']  # Replace with actual domains

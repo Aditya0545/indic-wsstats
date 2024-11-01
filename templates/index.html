@@ -48,7 +48,7 @@
 {% endblock head %}
 
 {% block main %}
-    <p> Statistics on <b> {{ data["timestamp"] }} </b> </p>
+    <p> Statistics on <b> {{ timestamp }} </b> </p>
     <table id="statsTable" class="table table-hover table-bordered table-sm" cellspacing="0" width="100%">
         <thead>
         <tr>
@@ -81,22 +81,20 @@
         </tr>
         </thead>
         <tbody>
-        {% for dbname in data %}
-            {% if 'timestamp' not in dbname %}
-                <tr>
-                    <td>{{ dbname }}</td>
-                    <td>{{ data[dbname]["Num_of_pages"] }}</td>
-                    <td>{{ data[dbname]["Without_text"] }}</td>
-                    <td>{{ data[dbname]["Not_proofread"] }}</td>
-                    <td>{{ data[dbname]["Problematic"] }}</td>
-                    <td>{{ data[dbname]["Proofread"] }}</td>
-                    <td>{{ data[dbname]["Validated"] }}</td>
-                    <td>{{ data[dbname]["Main_Pages"] }}</td>
-                    <td>{{ data[dbname]["Main_WithScan"] }}</td>
-                    <td>{{ data[dbname]["Main_WithOutScan"] }}</td>
-                    <td>{{ (100* data[dbname]["Main_WithScan"] / ( data[dbname]["Main_WithScan"] + data[dbname]["Main_WithOutScan"] ) ) |round(2) }}</td>
-                </tr>
-            {% endif %}
+            {% for stat in data %}
+            <tr>
+                <td>{{ stat.language_code }}</td>
+                <td>{{ stat.num_of_pages }}</td>
+                <td>{{ stat.without_text }}</td>
+                <td>{{ stat.not_proofread }}</td>
+                <td>{{ stat.problematic }}</td>
+                <td>{{ stat.proofread }}</td>
+                <td>{{ stat.validated }}</td>
+                <td>{{ stat.main_pages }}</td>
+                <td>{{ stat.main_with_scan }}</td>
+                <td>{{ stat.main_without_scan }}</td>
+                <td>{{ (100 * stat.main_with_scan / (stat.main_with_scan + stat.main_without_scan)) | round(2) if (stat.main_with_scan + stat.main_without_scan) > 0 else 0 }}</td>
+            </tr>
         {% endfor %}
         </tbody>
     </table>
